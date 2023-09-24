@@ -4,11 +4,15 @@
   import BlackSheep from './components/BlackSheep.svelte'
   import blackSheeps from './black_sheeps.json'
 
+  const underConstruction = true;
+
 </script>
 
 <svelte:head>
   <title>{ gls('rcgd_shame') }</title>
 </svelte:head>
+
+{ #if !underConstruction }
 
 <main>
   <h1 class="text-center mt-5 fw-bolder">{ gls('rcgd_shame') }</h1>
@@ -19,6 +23,10 @@
   { #each blackSheeps as blackSheepData }
     <BlackSheep sheepData={blackSheepData} />
   { /each }
-
-
 </main>
+
+{ :else }
+
+CONTENT WILL APPEAR LATER
+
+{ /if }
