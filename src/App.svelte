@@ -1,10 +1,20 @@
 <script>
+  import { onMount } from 'svelte';
   import { gls, changeLanguage } from './lib/languages'
+  import { db } from './lib/database.js'
+  import { ref, onValue, get } from "firebase/database";
   import LanguageChanger from './components/LanguageChanger.svelte'
   import BlackSheep from './components/BlackSheep.svelte'
-  import blackSheeps from './black_sheeps.json'
 
+  let blackSheeps = [];
   const underConstruction = false;
+
+  const blackSheepsRef = ref(db, '/black_sheeps');
+
+  onValue(blackSheepsRef, (snapshot) => {
+    const data = snapshot.val();
+    blackSheeps = data;
+  });
 
 </script>
 
