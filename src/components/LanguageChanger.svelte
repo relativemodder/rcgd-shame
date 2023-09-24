@@ -1,24 +1,26 @@
 <script>
-	import ruFlag from '../assets/ru-flag.png'
-	import enFlag from '../assets/en-flag.png'
 	import { gls, changeLanguage, getCurrentLanguage } from '../lib/languages.js'
 
-	const currentLanguage = getCurrentLanguage();
+	let currentLanguage = getCurrentLanguage();
 
-	function switchLanguage() {
-		changeLanguage(currentLanguage === 'ru' ? 'en' : 'ru');
+	function switchLanguage(toLang) {
+		currentLanguage = toLang;
+		changeLanguage(toLang);
+		location.reload();
 	}
 </script>
 
-<a href="/" class="language-changer" on:click={switchLanguage}>
-{ #if currentLanguage === "ru" }
-	<img src={enFlag} />
-	{ gls('switch_to', 'en') }
-{ :else }
-	<img src={ruFlag} />
-	{ gls('switch_to', 'ru') }
-{ /if }	
-</a>
+<div class="btn-group">
+	{ #each ["en", "ru"] as lang, index }
+		<a 
+			on:click={() => {switchLanguage(lang)}}
+			href="#" 
+			class={"d-flex align-items-center btn btn-primary" + (lang == currentLanguage ? " active" : "")} 
+			>
+			{ gls('title', lang) }
+		</a>
+	{ /each }
+</div>
 
 <style>
 	.language-changer {

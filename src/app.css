@@ -1,3 +1,7 @@
 * {
 	font-family: 'Raleway', sans-serif;
 }
+
+body {
+	overflow-y: scroll;
+}

@@ -1,6 +1,5 @@
 <script>
 	import { getCurrentLanguage, gls } from '../lib/languages.js'
-	import fistImage from '../assets/fist.png'
 	import Swal from 'sweetalert2'
 
 	let isPunch = false;
@@ -57,7 +56,7 @@
 </script>
 
 <div class={"fist" + (isPunch ? " punch" : "") + (isFistVisible ? '' : " d-none")}>
-	<img src={fistImage} />
+	<img src="/fist.png" />
 </div>
 
 <a href="#" class={"card black-sheep mx-4 mt-4" + (isShaking ? " shaking" : "")} on:click={punchSheep}>

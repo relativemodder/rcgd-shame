@@ -29,7 +29,7 @@
   <p class="text-center px-2">{ gls('site_description') }</p>
   <div class="d-flex justify-content-between mx-4">
     <LanguageChanger />
-    <span class="opacity-50 fw-bold">{ gls('idea_n_created') }</span>
+    <span class="opacity-50 fw-bold text-end d-flex align-items-center idea-n-created">{ gls('idea_n_created') }</span>
   </div>
   
   <br />
@@ -44,3 +44,11 @@
 CONTENT WILL APPEAR LATER
 
 { /if }
+
+<style>
+  @media screen and (max-width: 600px) {
+    .idea-n-created {
+      font-size: 12pt;
+    }
+  }
+</style>
