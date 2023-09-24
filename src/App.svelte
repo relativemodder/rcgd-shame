@@ -4,7 +4,7 @@
   import BlackSheep from './components/BlackSheep.svelte'
   import blackSheeps from './black_sheeps.json'
 
-  const underConstruction = true;
+  const underConstruction = false;
 
 </script>
 
