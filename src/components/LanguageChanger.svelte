@@ -10,7 +10,7 @@
 	}
 </script>
 
-<a href="/" class="language-changer ms-4" on:click={switchLanguage}>
+<a href="/" class="language-changer" on:click={switchLanguage}>
 { #if currentLanguage === "ru" }
 	<img src={enFlag} />
 	{ gls('switch_to', 'en') }

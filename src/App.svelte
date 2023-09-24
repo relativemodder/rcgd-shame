@@ -27,7 +27,11 @@
 <main>
   <h1 class="text-center mt-5 fw-bolder">{ gls('rcgd_shame') }</h1>
   <p class="text-center px-2">{ gls('site_description') }</p>
-  <LanguageChanger />
+  <div class="d-flex justify-content-between mx-4">
+    <LanguageChanger />
+    <span class="opacity-50 fw-bold">{ gls('idea_n_created') }</span>
+  </div>
+  
   <br />
   <p class="text-center w-100 fs-6">{ gls('click_to_punch') }</p>
   { #each blackSheeps as blackSheepData }
