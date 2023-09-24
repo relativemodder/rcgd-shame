@@ -24,7 +24,7 @@
 
 { #if !underConstruction }
 
-<main>
+<main class="mb-3">
   <h1 class="text-center mt-5 fw-bolder">{ gls('rcgd_shame') }</h1>
   <p class="text-center px-2">{ gls('site_description') }</p>
   <div class="d-flex justify-content-between mx-4">
