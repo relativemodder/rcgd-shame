@@ -2,7 +2,7 @@ import enStrings from '../languages/en.json'
 import ruStrings from '../languages/ru.json'
 
 function getCurrentLanguage() {
-	return localStorage.getItem("language") ?? navigator.language.split('-')[0];
+	return localStorage.getItem("language") ?? "en";
 }
 
 function gls(key, lang = null) {
