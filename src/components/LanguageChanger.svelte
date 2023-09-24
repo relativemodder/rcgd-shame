@@ -15,7 +15,7 @@
 		<a 
 			on:click={() => {switchLanguage(lang)}}
 			href="#" 
-			class={"d-flex align-items-center btn btn-primary" + (lang == currentLanguage ? " active" : "")} 
+			class={"d-flex align-items-center btn btn-" + (lang !== currentLanguage ? "outline-" : "") + "light"} 
 			>
 			{ gls('title', lang) }
 		</a>
