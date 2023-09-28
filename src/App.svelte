@@ -2,9 +2,10 @@
   import { onMount } from 'svelte';
   import { gls, changeLanguage } from './lib/languages'
   import { db } from './lib/database.js'
-  import { ref, onValue, get } from "firebase/database";
+  import { ref, onValue, get, set } from "firebase/database";
   import LanguageChanger from './components/LanguageChanger.svelte'
   import BlackSheep from './components/BlackSheep.svelte'
+  import TelegramLink from './components/TelegramLink.svelte'
 
   let blackSheeps = [];
   const underConstruction = false;
@@ -15,6 +16,26 @@
     const data = snapshot.val();
     blackSheeps = data;
   });
+
+  async function onSheepPunch(eventData) {
+    const sheepName = eventData.detail;
+    console.log("Punching sheep:", sheepName);
+
+    let searchIndex = 0;
+
+    blackSheeps.forEach((sheep, index) => {
+      if (sheep.name === sheepName) {
+        searchIndex = index;
+      }
+    })
+
+    const punchesRef = ref(db, '/black_sheeps/' + searchIndex + '/punches');
+    let oldCount = (await get(punchesRef)).val();
+
+    if (oldCount === null) oldCount = 0;
+
+    set(punchesRef, oldCount + 1);
+  }
 
 </script>
 
@@ -31,11 +52,13 @@
     <LanguageChanger />
     <span class="opacity-50 fw-bold text-end d-flex align-items-center idea-n-created">{ gls('idea_n_created') }</span>
   </div>
+
+  <TelegramLink />
   
   <br />
   <p class="text-center w-100 fs-6">{ gls('click_to_punch') }</p>
   { #each blackSheeps as blackSheepData }
-    <BlackSheep sheepData={blackSheepData} />
+    <BlackSheep sheepData={blackSheepData} on:punch={onSheepPunch} />
   { /each }
 </main>
 

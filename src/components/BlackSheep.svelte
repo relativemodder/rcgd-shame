@@ -1,5 +1,8 @@
 <script>
 	import { getCurrentLanguage, gls } from '../lib/languages.js'
+	import { createEventDispatcher } from 'svelte'
+
+	const dispatch = createEventDispatcher();
 
 	let isPunch = false;
 	let isFistVisible = false;
@@ -24,11 +27,15 @@
 		//)
 	}
 
+	export let sheepData;
+
 	async function punchSheep(e) {
 		e.preventDefault();
 		if (!canPunch) return;
 
 		punches++;
+
+		dispatch('punch', sheepData.name);
 
 		if (punches == 28) {
 			twentyEightPunches();
@@ -52,7 +59,6 @@
 		canPunch = true;
 	}
 
-	export let sheepData;
 </script>
 
 <div class={"fist" + (isPunch ? " punch" : "") + (isFistVisible ? '' : " d-none")}>
@@ -67,7 +73,7 @@
 			<p class="fw-medium">
 				{@html sheepData.description[getCurrentLanguage()] }
 			</p>
-			<small>{ gls('punches_count') + punches }</small>
+			<small>{ gls('punches_count') + punches }, { gls('total_punches') + (sheepData.punches != null ? sheepData.punches : 0) }</small>
 		</div>
 	</div>
 </a>
