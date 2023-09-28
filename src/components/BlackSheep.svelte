@@ -27,6 +27,29 @@
 		//)
 	}
 
+	async function dovisMother() {
+		const screamer = document.createElement("audio")
+		screamer.src = '/screamer.mp3'
+
+		screamer.addEventListener("play", async() => {
+			setTimeout(() => {
+				const intervalID = setInterval(() => {
+				    document.querySelector(".dovi-s-mother").classList.toggle("d-none")
+				}, 40)
+				setTimeout(() => {
+				    clearInterval(intervalID)
+					document.querySelector(".dovi-s-mother").remove();
+				}, 2000)
+			}, 650);
+		})
+
+		screamer.play()
+	}
+
+	async function rickRoll() {
+		document.querySelector("#hidden-rickroll-link").click();
+	}
+
 	export let sheepData;
 
 	async function punchSheep(e) {
@@ -39,6 +62,14 @@
 
 		if (punches == 28) {
 			twentyEightPunches();
+		}
+
+		if (punches == 500) {
+			await rickRoll();
+		}
+
+		if (punches == 666) {
+			await dovisMother();
 		}
 
 		canPunch = false;

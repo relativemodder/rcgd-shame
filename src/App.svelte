@@ -9,6 +9,7 @@
   import BlackSheep from './components/BlackSheep.svelte'
   import TelegramLink from './components/TelegramLink.svelte'
   import SortDropdown from './components/SortDropdown.svelte'
+  import DovisMotherScreamer from './components/DovisMotherScreamer.svelte'
 
   let blackSheeps = [];
   let blackSheepsVisible = [];
@@ -102,6 +103,10 @@
 CONTENT WILL APPEAR LATER
 
 { /if }
+
+<a id="hidden-rickroll-link" class="d-none" href="https://youtu.be/dQw4w9WgXcQ" target="_blank">Hidden rickroll lmao</a>
+
+<DovisMotherScreamer />
 
 <style>
   @media screen and (max-width: 600px) {
