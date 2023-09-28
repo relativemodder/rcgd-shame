@@ -43,9 +43,9 @@
 		await sleep(50);
 		isShaking = true;
 
-		await sleep(500);
+		await sleep(100);
 		isPunch = false;
-		await sleep(500);
+		await sleep(100);
 
 		isShaking = false;
 		isFistVisible = false;
@@ -79,7 +79,7 @@
 	}
 
 	.black-sheep.shaking {
-		animation: shakinganimation 0.5s;
+		animation: shakinganimation 0.2s;
 	}
 
 	@keyframes shakinganimation {
