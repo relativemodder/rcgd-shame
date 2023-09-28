@@ -105,6 +105,7 @@ CONTENT WILL APPEAR LATER
 { /if }
 
 <a id="hidden-rickroll-link" class="d-none" href="https://youtu.be/dQw4w9WgXcQ" target="_blank">Hidden rickroll lmao</a>
+<a id="hidden-tilt-link" class="d-none" href="https://youtu.be/aucr0xZj5P4?t=5" target="_blank">ВСЁ ЭТО ТИЛЬТ АНЛАК</a>
 
 <DovisMotherScreamer />
 

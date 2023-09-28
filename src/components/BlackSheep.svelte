@@ -50,6 +50,10 @@
 		document.querySelector("#hidden-rickroll-link").click();
 	}
 
+	async function tiltUnluck() {
+		document.querySelector("#hidden-tilt-link").click();
+	}
+
 	export let sheepData;
 
 	async function punchSheep(e) {
@@ -70,6 +74,10 @@
 
 		if (punches == 666) {
 			await dovisMother();
+		}
+
+		if (punches == 1000) {
+			await tiltUnluck();
 		}
 
 		canPunch = false;
