@@ -9,5 +9,10 @@
 	"twenty_eight_text": "Ты действовал наверняка, да?",
 	"idea_n_created": "Идея от Ивава, реализовал RLT",
 	"our_telegram": "Наша телега",
-	"total_punches": "Всего ударов: "
+	"total_punches": "Всего ударов: ",
+	"sort": "Сортировать",
+	"by_date_asc": "По дате (возрастание)",
+	"by_date_desc": "По дате (убывание)",
+	"by_punches_asc": "По ударам (возрастание)",
+	"by_punches_desc": "По ударам (убывание)"
 }

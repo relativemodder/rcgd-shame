@@ -9,5 +9,10 @@
 	"twenty_eight_text": "You didn't want to leave him a chance, huh?",
 	"idea_n_created": "Idea by Ayrelia, created by RLT",
 	"our_telegram": "Our Telegram",
-	"total_punches": "Total punches: "
+	"total_punches": "Total punches: ",
+	"sort": "Sort",
+	"by_date_asc": "By Date (ascending)",
+	"by_date_desc": "By Date (descending)",
+	"by_punches_asc": "By Punches (ascending)",
+	"by_punches_desc": "By Punches (descending)"
 }

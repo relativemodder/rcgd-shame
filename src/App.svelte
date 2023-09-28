@@ -1,20 +1,47 @@
 <script>
-  import { onMount } from 'svelte';
+  import { onMount } from 'svelte'
   import { gls, changeLanguage } from './lib/languages'
   import { db } from './lib/database.js'
-  import { ref, onValue, get, set } from "firebase/database";
+  import { ref, onValue, get, set } from "firebase/database"
+  import { sortByPunchesAsc, sortByPunchesDesc } from './lib/sortlib.js'
+
   import LanguageChanger from './components/LanguageChanger.svelte'
   import BlackSheep from './components/BlackSheep.svelte'
   import TelegramLink from './components/TelegramLink.svelte'
+  import SortDropdown from './components/SortDropdown.svelte'
 
   let blackSheeps = [];
+  let blackSheepsVisible = [];
+
   const underConstruction = false;
 
+  let blackSheepsSortType = 0;
+
   const blackSheepsRef = ref(db, '/black_sheeps');
+
+  function sortSheeps(sortType) {
+    if (blackSheepsSortType === 0) {
+      blackSheepsVisible = [...blackSheeps];
+    }
+
+    if (blackSheepsSortType === 1) {
+      blackSheepsVisible = [...blackSheeps].reverse();
+    }
+
+    if (blackSheepsSortType === 2) {
+      blackSheepsVisible = [...blackSheeps].sort(sortByPunchesAsc);
+    }
+
+    if (blackSheepsSortType === 3) {
+      blackSheepsVisible = [...blackSheeps].sort(sortByPunchesDesc);
+    }
+  }
 
   onValue(blackSheepsRef, (snapshot) => {
     const data = snapshot.val();
     blackSheeps = data;
+
+    sortSheeps(blackSheepsSortType);
   });
 
   async function onSheepPunch(eventData) {
@@ -37,6 +64,13 @@
     set(punchesRef, oldCount + 1);
   }
 
+  async function onSortSelect(sortType) {
+    blackSheepsSortType = sortType.detail;
+    sortSheeps(blackSheepsSortType);
+    console.log("Selected:", blackSheepsSortType);
+  }
+
+
 </script>
 
 <svelte:head>
@@ -54,10 +88,11 @@
   </div>
 
   <TelegramLink />
+  <SortDropdown on:select={onSortSelect} />
   
   <br />
   <p class="text-center w-100 fs-6">{ gls('click_to_punch') }</p>
-  { #each blackSheeps as blackSheepData }
+  { #each blackSheepsVisible as blackSheepData }
     <BlackSheep sheepData={blackSheepData} on:punch={onSheepPunch} />
   { /each }
 </main>
