@@ -1,6 +1,5 @@
 <script>
 	import { getCurrentLanguage, gls } from '../lib/languages.js'
-	import Swal from 'sweetalert2'
 
 	let isPunch = false;
 	let isFistVisible = false;
@@ -17,11 +16,12 @@
 	}
 
 	async function twentyEightPunches() {
-		Swal.fire(
-		  gls('twenty_eight_title'),
-		  gls('twenty_eight_text'),
-		  'question'
-		)
+		alert(gls('twenty_eight_title') + " " + gls('twenty_eight_text'))
+		//Swal.fire(
+		//  gls('twenty_eight_title'),
+		//  gls('twenty_eight_text'),
+		//  'question'
+		//)
 	}
 
 	async function punchSheep(e) {
