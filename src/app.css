@@ -3,5 +3,6 @@
 }
 
 body {
+	margin-bottom: 2em;
 	overflow-y: scroll;
 }
