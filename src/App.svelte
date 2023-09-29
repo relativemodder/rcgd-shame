@@ -37,21 +37,21 @@
     }
   }
 
-  onMount(async() => {
+  async function syncSheepsInstantly() {
     const sheepsRequest = await fetch('//api.hall-of-shame-rc.ru/black_sheeps')
     const sheepsData = await sheepsRequest.json()
 
     blackSheeps = sheepsData;
     sortSheeps(blackSheepsSortType);
+  }
 
-    const ws = new WebSocket('wss://api.hall-of-shame-rc.ru/ws');
-    ws.addEventListener("message", (e) => {
-      const newData = JSON.parse(e.data);
+  onMount(async() => {
+    syncSheepsInstantly();
 
-      blackSheeps = newData;
-      sortSheeps(blackSheepsSortType);
-    });
-    })
+    setInterval(() => {
+      syncSheepsInstantly()
+    }, 1000);
+  })
 
   //onValue(blackSheepsRef, (snapshot) => {
   //  const data = snapshot.val();
