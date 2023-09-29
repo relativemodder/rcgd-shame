@@ -67,18 +67,17 @@
       method: 'POST'
     })
     const newData = await punchRequest.json();
-
-    blackSheeps = newData;
-    sortSheeps(blackSheepsSortType);
     //console.log("Punching sheep:", sheepName);
 
-    //let searchIndex = 0;
+    let searchIndex = 0;
 
-    //blackSheeps.forEach((sheep, index) => {
-    //  if (sheep.name === sheepName) {
-    //    searchIndex = index;
-    //  }
-    //})
+    blackSheeps.forEach((sheep, index) => {
+      if (sheep.name === sheepName) {
+        searchIndex = index;
+      }
+    })
+
+    blackSheeps[searchIndex].punches = newData.updated_count;
 
     //const punchesRef = ref(db, '/black_sheeps/' + searchIndex + '/punches');
     //let oldCount = (await get(punchesRef)).val();
