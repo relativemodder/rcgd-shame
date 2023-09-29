@@ -43,7 +43,7 @@
 
     blackSheeps = sheepsData;
     sortSheeps(blackSheepsSortType);
-    
+
     const ws = new WebSocket('wss://api.hall-of-shame-rc.ru/ws');
     ws.addEventListener("message", (e) => {
       const newData = JSON.parse(e.data);
@@ -66,6 +66,10 @@
     const punchRequest = await fetch('//api.hall-of-shame-rc.ru/black_sheeps/' + sheepName + '/punch', {
       method: 'POST'
     })
+    const newData = await punchRequest.json();
+
+    blackSheeps = newData;
+    sortSheeps(blackSheepsSortType);
     //console.log("Punching sheep:", sheepName);
 
     //let searchIndex = 0;
