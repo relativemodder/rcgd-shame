@@ -78,6 +78,7 @@
     })
 
     blackSheeps[searchIndex].punches = newData.updated_count;
+    sortSheeps(blackSheepsSortType);
 
     //const punchesRef = ref(db, '/black_sheeps/' + searchIndex + '/punches');
     //let oldCount = (await get(punchesRef)).val();
