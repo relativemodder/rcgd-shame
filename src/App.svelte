@@ -17,6 +17,8 @@
   const underConstruction = false;
   let blackSheepsSortType = 0;
 
+  let onlineCounter = 0;
+
   //const blackSheepsRef = ref(db, '/black_sheeps');
 
   function sortSheeps(sortType) {
@@ -63,8 +65,21 @@
     const ws = new WebSocket("wss://api.hall-of-shame-rc.ru/ws");
     ws.addEventListener("message", async(e) => {
       const newMessageData = JSON.parse(e.data);
-      blackSheeps[newMessageData.sheep_id].punches = newMessageData.new_count
-      sortSheeps(blackSheepsSortType);
+
+      console.log(newMessageData);
+
+      switch (newMessageData.event_type) {
+        case 'sheep_update':
+          blackSheeps[newMessageData.sheep_id].punches = newMessageData.new_count
+          sortSheeps(blackSheepsSortType);
+          break;
+        case 'online_update':
+          onlineCounter = newMessageData.count
+          break;
+        default:
+          console.warn("Idk");
+          break;
+      }
     });
 
     setInterval(() => {
@@ -128,7 +143,7 @@
   <SortDropdown on:select={onSortSelect} />
   
   <br />
-  <p class="text-center w-100 fs-6">{ gls('click_to_punch') }</p>
+  <p class="text-center w-100 fs-6">{ onlineCounter } { gls('people_online') }</p>
   { #each blackSheepsVisible as blackSheepData }
     <BlackSheep sheepData={blackSheepData} on:punch={onSheepPunch} />
   { /each }
