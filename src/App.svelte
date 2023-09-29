@@ -1,8 +1,8 @@
 <script>
   import { onMount } from 'svelte'
   import { gls, changeLanguage } from './lib/languages'
-  import { db } from './lib/database.js'
-  import { ref, onValue, get, set } from "firebase/database"
+  //import { db } from './lib/database.js'
+  //import { ref, onValue, get, set } from "firebase/database"
   import { sortByPunchesAsc, sortByPunchesDesc } from './lib/sortlib.js'
 
   import LanguageChanger from './components/LanguageChanger.svelte'
@@ -15,10 +15,9 @@
   let blackSheepsVisible = [];
 
   const underConstruction = false;
-
   let blackSheepsSortType = 0;
 
-  const blackSheepsRef = ref(db, '/black_sheeps');
+  //const blackSheepsRef = ref(db, '/black_sheeps');
 
   function sortSheeps(sortType) {
     if (blackSheepsSortType === 0) {
@@ -38,31 +37,51 @@
     }
   }
 
-  onValue(blackSheepsRef, (snapshot) => {
-    const data = snapshot.val();
-    blackSheeps = data;
+  onMount(async() => {
+    const sheepsRequest = await fetch('//api.hall-of-shame-rc.ru/black_sheeps')
+    const sheepsData = await sheepsRequest.json()
 
+    blackSheeps = sheepsData;
     sortSheeps(blackSheepsSortType);
-  });
+    
+    const ws = new WebSocket('wss://api.hall-of-shame-rc.ru/ws');
+    ws.addEventListener("message", (e) => {
+      const newData = JSON.parse(e.data);
+
+      blackSheeps = newData;
+      sortSheeps(blackSheepsSortType);
+    });
+    })
+
+  //onValue(blackSheepsRef, (snapshot) => {
+  //  const data = snapshot.val();
+  //  blackSheeps = data;
+  //
+  //  sortSheeps(blackSheepsSortType);
+  //});
 
   async function onSheepPunch(eventData) {
     const sheepName = eventData.detail;
-    console.log("Punching sheep:", sheepName);
 
-    let searchIndex = 0;
-
-    blackSheeps.forEach((sheep, index) => {
-      if (sheep.name === sheepName) {
-        searchIndex = index;
-      }
+    const punchRequest = await fetch('//api.hall-of-shame-rc.ru/black_sheeps/' + sheepName + '/punch', {
+      method: 'POST'
     })
+    //console.log("Punching sheep:", sheepName);
 
-    const punchesRef = ref(db, '/black_sheeps/' + searchIndex + '/punches');
-    let oldCount = (await get(punchesRef)).val();
+    //let searchIndex = 0;
 
-    if (oldCount === null) oldCount = 0;
+    //blackSheeps.forEach((sheep, index) => {
+    //  if (sheep.name === sheepName) {
+    //    searchIndex = index;
+    //  }
+    //})
 
-    set(punchesRef, oldCount + 1);
+    //const punchesRef = ref(db, '/black_sheeps/' + searchIndex + '/punches');
+    //let oldCount = (await get(punchesRef)).val();
+
+    //if (oldCount === null) oldCount = 0;
+
+    //set(punchesRef, oldCount + 1);
   }
 
   async function onSortSelect(sortType) {
@@ -70,8 +89,6 @@
     sortSheeps(blackSheepsSortType);
     console.log("Selected:", blackSheepsSortType);
   }
-
-
 </script>
 
 <svelte:head>
