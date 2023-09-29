@@ -63,12 +63,6 @@
   async function onSheepPunch(eventData) {
     const sheepName = eventData.detail;
 
-    const punchRequest = await fetch('//api.hall-of-shame-rc.ru/black_sheeps/' + sheepName + '/punch', {
-      method: 'POST'
-    })
-    const newData = await punchRequest.json();
-    //console.log("Punching sheep:", sheepName);
-
     let searchIndex = 0;
 
     blackSheeps.forEach((sheep, index) => {
@@ -77,6 +71,14 @@
       }
     })
 
+    blackSheeps[searchIndex].punches += 1;
+    sortSheeps(blackSheepsSortType);
+
+    const punchRequest = await fetch('//api.hall-of-shame-rc.ru/black_sheeps/' + sheepName + '/punch', {
+      method: 'POST'
+    })
+    const newData = await punchRequest.json();
+    //console.log("Punching sheep:", sheepName);
     blackSheeps[searchIndex].punches = newData.updated_count;
     sortSheeps(blackSheepsSortType);
 
