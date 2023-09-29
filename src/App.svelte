@@ -37,6 +37,18 @@
     }
   }
 
+  function getSheepIDByName(sheepName) {
+    let searchIndex = 0;
+
+    blackSheeps.forEach((sheep, index) => {
+      if (sheep.name === sheepName) {
+        searchIndex = index;
+      }
+    })
+
+    return searchIndex
+  }
+
   async function syncSheepsInstantly() {
     const sheepsRequest = await fetch('//api.hall-of-shame-rc.ru/black_sheeps')
     const sheepsData = await sheepsRequest.json()
@@ -48,9 +60,16 @@
   onMount(async() => {
     syncSheepsInstantly();
 
+    const ws = new WebSockets("wss://api.hall-of-shame-rc.ru/ws");
+    ws.addEventListener("message", async(e) => {
+      const newMessageData = JSON.parse(e.data);
+      blackSheeps[newMessageData.sheep_id].punches = newMessageData.new_count
+      sortSheeps(blackSheepsSortType);
+    });
+
     setInterval(() => {
       syncSheepsInstantly()
-    }, 1000);
+    }, 5000);
   })
 
   //onValue(blackSheepsRef, (snapshot) => {
@@ -63,13 +82,7 @@
   async function onSheepPunch(eventData) {
     const sheepName = eventData.detail;
 
-    let searchIndex = 0;
-
-    blackSheeps.forEach((sheep, index) => {
-      if (sheep.name === sheepName) {
-        searchIndex = index;
-      }
-    })
+    const searchIndex = getSheepIDByName(sheepName);
 
     blackSheeps[searchIndex].punches += 1;
     sortSheeps(blackSheepsSortType);
