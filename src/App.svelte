@@ -60,7 +60,7 @@
   onMount(async() => {
     syncSheepsInstantly();
 
-    const ws = new WebSockets("wss://api.hall-of-shame-rc.ru/ws");
+    const ws = new WebSocket("wss://api.hall-of-shame-rc.ru/ws");
     ws.addEventListener("message", async(e) => {
       const newMessageData = JSON.parse(e.data);
       blackSheeps[newMessageData.sheep_id].punches = newMessageData.new_count
